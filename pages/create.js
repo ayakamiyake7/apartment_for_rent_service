@@ -1,10 +1,13 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+import { listsState } from "../src/hooks/listsState";
 
 export default function Create() {
-  const [lists, setLists] = useState("");
-  const [address, setAddress] = useState("aiueo");
+  const [lists, setLists] = useRecoilState(listsState);
+  const [address, setAddress] = useState("");
   const [type, setType] = useState("flat");
+  const [description, setDescription] = useState("");
 
   const handleAddAddress = (e) => {
     setAddress(e.target.value);
@@ -19,6 +22,7 @@ export default function Create() {
       {
         address: address,
         type: type,
+        description: description,
         id: Math.floor(Math.random() * 100),
       },
       ...lists,
@@ -39,6 +43,8 @@ export default function Create() {
         <option value="semi-detached">Semi-detached</option>
         <option value="Terraced">Terraced</option>
       </select>
+      <h2>Description</h2>
+      <textarea onChange={(e) => setDescription(e.target.value)} />
 
       <Link href="/">
         <button
