@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import { v4 as uunidv4 } from "uuid";
+
 import { listsState } from "../src/hooks/listsState";
 
 export default function Create() {
@@ -23,7 +25,7 @@ export default function Create() {
         address: address,
         type: type,
         description: description,
-        id: Math.floor(Math.random() * 100),
+        id: uunidv4(),
       },
       ...lists,
     ];
