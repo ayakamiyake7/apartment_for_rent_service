@@ -30,7 +30,6 @@ export default function Create() {
       ...lists,
     ];
 
-    console.log("newLists=", newLists);
     setLists(newLists);
   };
 
