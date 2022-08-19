@@ -24,12 +24,7 @@ export default function Home() {
           return (
             <li key={list.id}>
               {list.id},{list.address},{list.type},{list.description}
-              <Link
-                href={{
-                  pathname: `/rents/rent`,
-                  query: { id: list.id },
-                }}
-              >
+              <Link href={`/rents/${list.id}`}>
                 <button>Detail</button>
               </Link>
             </li>
