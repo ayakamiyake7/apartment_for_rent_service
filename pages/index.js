@@ -24,7 +24,7 @@ export default function Home() {
           return (
             <li key={list.id}>
               {list.id},{list.address},{list.type},{list.description}
-              <Link href={`/rents/${list.id}`}>
+              <Link href={`/show/${list.id}`}>
                 <button>Detail</button>
               </Link>
             </li>
