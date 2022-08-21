@@ -9,24 +9,24 @@ export default function Edit() {
   const { id } = router.query;
 
   const [lists, setLists] = useRecoilState(listsState);
-  const [address, setAddress] = useState(address);
+  const [editedList, setEditedList] = useState({});
+  const [address, setAddress] = useState("");
 
-  const handleAddAddress = (e) => {
+  const handleChangeAddress = (e) => {
     setAddress(e.target.value);
     console.log("address=", address);
   };
-
-  useEffect(() => {
-    //filter
-    setLists(lists.filter((list) => list.id === router.query.id));
-  }, []);
-  console.log(lists);
 
   return (
     <>
       <h2>Address</h2>
       <p>/show/{id}/edit</p>
-      <input type="text" value={address} onChange={handleAddAddress} />
+      <input
+        type="text"
+        address={address}
+        value={address}
+        onChange={handleChangeAddress}
+      />
     </>
   );
 }

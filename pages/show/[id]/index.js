@@ -38,11 +38,6 @@ export default function Rent() {
       </ul>
       {/* idを持ってく */}
       <Link href={`/show/${selectedList.id}/edit`}>
-        {/* <Link
-        href={{
-          pathname: `/rents/${selectedList.id}/edit`
-        }}
-      > */}
         <button>Edit</button>
       </Link>
     </>
