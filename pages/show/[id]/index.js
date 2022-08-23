@@ -8,6 +8,8 @@ import { listsState } from "../../../src/hooks/listsState";
 export default function Rent() {
   // To gain an id that was passed from index.js
   const router = useRouter();
+  const { id } = router.query;
+
   // To call present lists (all)
   const lists = useRecoilValue(listsState);
   // To set list which is selected
@@ -27,6 +29,8 @@ export default function Rent() {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
 
+  console.log("id=", id);
+
   return (
     <>
       <p>This is rent page.</p>
@@ -36,8 +40,8 @@ export default function Rent() {
         <li>{selectedList.description}</li>
         <li>{selectedList.id}</li>
       </ul>
-      {/* idを持ってく */}
-      <Link href={`/show/${selectedList.id}/edit`}>
+      {/* hrefの中にqueryを定義する*/}
+      <Link href={{pathname:`/show/${selectedList.id}/edit`, query: { id: selectedList.id }}}>
         <button>Edit</button>
       </Link>
     </>
