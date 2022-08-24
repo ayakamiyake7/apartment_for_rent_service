@@ -23,9 +23,12 @@ export default function Edit() {
   useEffect(() => {
     //filter
     setRawList(recoilLists.find((list) => list.id === router.query.id));
+    // 下のuseEffectを削除して、以下の処理に置き換えてもらえると良いと思います。
+    // setEditedList(recoilLists.find((list) => list.id === router.query.id));
   }, []);
 
   // Recoilのデータを読み出されたら、編集画面用のuseStateにセットする
+  // この処理いらないですね。
   useEffect(() => {
     setEditedList({...rawList});
   }, [rawList]);
