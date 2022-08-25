@@ -2,7 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { listsState } from "../src/hooks/listsState";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
