@@ -9,12 +9,18 @@ export default function Edit() {
 
   const [recoilLists, recoilSetLists] = useRecoilState(listsState);
   const [editedList, setEditedList] = useState({});
-  const [rawList, setRawList] = useState({});
-  const [address, setAddress] = useState("");
 
   const handleChangeAddress = (e) => {
-    setEditedList({ ...rawList, address: e.target.value });
-    console.log("address=", e.target.value);
+    setEditedList({ ...editedList, address: e.target.value });
+  };
+
+  const handleChangeType = (e) => {
+    setEditedList({ ...editedList, type: e.target.value });
+  };
+
+  const handleChangeDescription = (e) => {
+    setEditedList({ ...editedList, description: e.target.value });
+    console.log("description=", e.target.value);
   };
 
   // 画面遷移したときにRecoilのデータを読み出す
@@ -36,11 +42,27 @@ export default function Edit() {
       <h2>Address</h2>
       <input
         type="text"
-        address={address || ""}
-        value={editedList.address}
+        value={editedList.address || ""}
         onChange={handleChangeAddress}
       />
+
+      <h2>Type</h2>
+      <select onChange={handleChangeType}>
+        <option value="flat">Flat</option>
+        <option value="detached">Detached</option>
+        <option value="semi-detached">Semi-detached</option>
+        <option value="Terraced">Terraced</option>
+      </select>
+
+      <h2>Description</h2>
+      <textarea
+        value={editedList.description}
+        onChange={handleChangeDescription}
+      />
+
       <p>{editedList.address}</p>
+      <p>{editedList.type}</p>
+      <p>{editedList.description}</p>
 
       <button onClick={saveData}>save</button>
     </>
