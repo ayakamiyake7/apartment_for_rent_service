@@ -12,30 +12,26 @@ import {
 
 export default function Signup() {
   return (
-    <Container
-      h={600}
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <Container h="100vh" p={{ sm: 0 }} position="relative">
       <Stack
-        direction="row"
-        spacing={8}
+        direction={["column", "row"]}
+        spacing={{ base: 0, md: 8 }}
         maxW="container.lg"
-        // minH="100%"
-        h="100%"
+        h="600"
         my="6"
         boxShadow="lg"
         rounded="lg"
-        w={{ md: 1000, sm: "100%" }}
+        w={{
+          base: "calc(100% - 40px)",
+          md: 1000,
+        }}
         m="auto"
-        // position="absolute"
-        // top="50%"
-        // left="50%"
-        // transform="translate(-50%, -50%)"
-        // display="block"
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
       >
-        <Box w={600} p={6}>
+        <Box w={{ md: 600, sm: "100%" }} p={6}>
           <Heading as="h1" size="xl" mb={20} color="teal.400">
             Create a new account.
           </Heading>
