@@ -17,7 +17,7 @@ export default function Signup() {
         direction={["column", "row"]}
         spacing={{ base: 0, md: 8 }}
         maxW="container.lg"
-        h="600"
+        h={{ base: "auto", md: 600 }}
         my="6"
         boxShadow="lg"
         rounded="lg"
@@ -83,7 +83,7 @@ export default function Signup() {
             display="block"
             mx={"auto"}
           >
-            <a href="login">LOGIN</a>
+            <Link href="/login">LOGIN</Link>
           </Button>
         </Box>
       </Stack>
