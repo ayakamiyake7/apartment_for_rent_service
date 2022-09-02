@@ -20,7 +20,6 @@ export default function Edit() {
 
   const handleChangeDescription = (e) => {
     setEditedList({ ...editedList, description: e.target.value });
-    console.log("description=", e.target.value);
   };
 
   // 画面遷移したときにRecoilのデータを読み出す
@@ -34,6 +33,13 @@ export default function Edit() {
     const lists = [...recoilLists];
     lists[index] = { ...editedList };
     recoilSetLists(lists);
+    router.push("/");
+  };
+
+  const deleteData = () => {
+    const newLists = recoilLists.filter((list) => list.id !== router.query.id);
+    recoilSetLists(newLists);
+    console.log(recoilLists);
     router.push("/");
   };
 
@@ -65,6 +71,7 @@ export default function Edit() {
       <p>{editedList.description}</p>
 
       <button onClick={saveData}>save</button>
+      <button onClick={deleteData}>Delete</button>
     </>
   );
 }
