@@ -44,6 +44,11 @@ export default function Create() {
         <option value="semi-detached">Semi-detached</option>
         <option value="Terraced">Terraced</option>
       </select>
+      <h2>Images</h2>
+      <button>
+        Upload
+        <input type="file" />
+      </button>
       <h2>Description</h2>
       <textarea onChange={(e) => setDescription(e.target.value)} />
 
