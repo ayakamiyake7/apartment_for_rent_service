@@ -10,6 +10,7 @@ export default function Create() {
   const [address, setAddress] = useState("");
   const [type, setType] = useState("flat");
   const [description, setDescription] = useState("");
+  const [images, setImages] = useState([]);
 
   const handleAddAddress = (e) => {
     setAddress(e.target.value);
@@ -19,11 +20,17 @@ export default function Create() {
     setType(e.target.value);
   };
 
+  const onFileUpload = (e) => {
+    if (!e.target.files) return;
+    setImages([...images, ...e.target.files]);
+  };
+
   const handleClickCreate = () => {
     const newLists = [
       {
         address: address,
         type: type,
+        images: images,
         description: description,
         id: uunidv4(),
       },
@@ -31,6 +38,8 @@ export default function Create() {
     ];
 
     setLists(newLists);
+
+    console.log(newLists);
   };
 
   return (
@@ -45,10 +54,13 @@ export default function Create() {
         <option value="Terraced">Terraced</option>
       </select>
       <h2>Images</h2>
-      <button>
-        Upload
-        <input type="file" />
-      </button>
+      <input
+        multiple
+        type="file"
+        accept=".png, .jpeg, .jpg"
+        onChange={onFileUpload}
+      />
+
       <h2>Description</h2>
       <textarea onChange={(e) => setDescription(e.target.value)} />
 

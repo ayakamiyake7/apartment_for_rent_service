@@ -23,7 +23,8 @@ export default function Home() {
         {lists.map((list) => {
           return (
             <li key={list.id}>
-              {list.id},{list.address},{list.type},{list.description}
+              {list.id},{list.address},{list.type},{list.description},
+              {/* {list.images[0]} */}
               <Link href={`/show/${list.id}`}>
                 <button>Detail</button>
               </Link>
