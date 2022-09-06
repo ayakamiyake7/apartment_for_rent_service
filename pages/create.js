@@ -58,6 +58,7 @@ export default function Create() {
         multiple
         type="file"
         accept=".png, .jpeg, .jpg"
+        dataURLKey="data_url"
         onChange={onFileUpload}
       />
 
