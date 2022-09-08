@@ -23,8 +23,20 @@ export default function Home() {
         {lists.map((list) => {
           return (
             <li key={list.id}>
-              {list.id},{list.address},{list.type},{list.description},
-              {/* {list.images[0]} */}
+              {list.id},{list.address},{list.type},{list.description}
+              {list.images.map((image, i) => {
+                <div key={i}>
+                  <img
+                    src={image.data_url}
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                </div>;
+                {
+                  console.log(image);
+                }
+              })}
               <Link href={`/show/${list.id}`}>
                 <button>Detail</button>
               </Link>
