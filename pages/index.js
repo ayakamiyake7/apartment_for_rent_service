@@ -5,9 +5,11 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   Grid,
   GridItem,
   Heading,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 
@@ -18,9 +20,11 @@ export default function Home() {
 
   return (
     <Container
-      h="100vh"
+      h="100%"
+      minHeight="100vh"
       position="relative"
-      backgroundImage="linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)"
+      // backgroundImage="linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)"
+      background="#efefef"
       maxW="auto"
     >
       <Head>
@@ -30,24 +34,24 @@ export default function Home() {
       </Head>
 
       <Box
-        h={{ base: "auto", md: 600 }}
+        // h={{ base: "auto", md: 600 }}
         my="6"
-        boxShadow="lg"
+        // boxShadow="lg"
         rounded="lg"
         w={{
           base: "calc(100% - 40px)",
           md: 1000,
         }}
         m="auto"
-        p={8}
-        background="#fff"
-        position="absolute"
-        top={{ base: 10, md: "50%" }}
-        left="50%"
-        transform={{
-          base: "translate(-50%, 0)",
-          md: "translate(-50%, -50%)",
-        }}
+        py={8}
+        // background="#fff"
+        // position="absolute"
+        // top={{ base: 10, md: "50%" }}
+        // left="50%"
+        // transform={{
+        //   base: "translate(-50%, 0)",
+        //   md: "translate(-50%, -50%)",
+        // }}
       >
         <Heading as="h1" size="xl" mb={10} color="teal.400">
           Find a Flat.
@@ -68,29 +72,51 @@ export default function Home() {
           </Button>
         </Link>
 
-        <Grid templateColumns="repeat(2,1fr)">
+        <Flex
+          wrap="wrap"
+          align="flex-start"
+          justify="space-between"
+          direction={{ base: "column", md: "row" }}
+        >
           {lists.map((list) => {
             return (
-              <GridItem w="100%" key={list.id}>
-                <Heading as="h2" size="md" mb={2} color="gray.500">
+              <GridItem
+                key={list.id}
+                w={{ base: "100%", md: "48%" }}
+                boxShadow="lg"
+                p={10}
+                mb={8}
+              >
+                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
                   Address
-                </Heading>
+                </Heading> */}
                 <Text mb={8}>{list.address}</Text>
-                <Heading as="h2" size="md" mb={2} color="gray.500">
+                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
                   Type
-                </Heading>
+                </Heading> */}
                 <Text mb={8}>{list.type}</Text>
-                <Heading as="h2" size="md" mb={2} color="gray.500">
+                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
                   Description
-                </Heading>
+                </Heading> */}
                 <Text mb={10}>{list.description}</Text>
                 <Link href={`/show/${list.id}`}>
-                  <button>Detail</button>
+                  <Button
+                    size="lg"
+                    w={200}
+                    borderRadius={20}
+                    bg={"teal.400"}
+                    colorScheme="teal"
+                    display="block"
+                    mx="auto"
+                    mb={10}
+                  >
+                    Detail
+                  </Button>
                 </Link>
               </GridItem>
             );
           })}
-        </Grid>
+        </Flex>
       </Box>
     </Container>
   );
