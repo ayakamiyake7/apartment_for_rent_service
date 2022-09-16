@@ -44,30 +44,21 @@ export default function Create() {
 
   return (
     <Container
-      h="100vh"
+      h="100%"
+      minHeight="100vh"
       position="relative"
-      backgroundImage="linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)"
+      background="#efefef"
       maxW="auto"
     >
       <Box
-        h={{ base: "auto", md: 600 }}
         my="6"
-        boxShadow="lg"
         rounded="lg"
         w={{
           base: "calc(100% - 40px)",
           md: 1000,
         }}
         m="auto"
-        p={8}
-        background="#fff"
-        position="absolute"
-        top={{ base: 10, md: "50%" }}
-        left="50%"
-        transform={{
-          base: "translate(-50%, 0)",
-          md: "translate(-50%, -50%)",
-        }}
+        py={8}
       >
         <Heading as="h1" size="xl" mb={10} color="teal.400">
           Create a List.

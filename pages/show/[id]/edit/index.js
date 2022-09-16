@@ -2,6 +2,16 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Input,
+  Select,
+  Textarea,
+} from "@chakra-ui/react";
+
 import { listsState } from "../../../../src/hooks/listsState";
 
 export default function Edit() {
@@ -44,34 +54,84 @@ export default function Edit() {
   };
 
   return (
-    <>
-      <h2>Address</h2>
-      <input
-        type="text"
-        value={editedList.address || ""}
-        onChange={handleChangeAddress}
-      />
+    <Container
+      h="100%"
+      minHeight="100vh"
+      position="relative"
+      background="#efefef"
+      maxW="auto"
+    >
+      <Box
+        my="6"
+        rounded="lg"
+        w={{
+          base: "calc(100% - 40px)",
+          md: 1000,
+        }}
+        m="auto"
+        py={8}
+      >
+        <Heading as="h1" size="xl" mb={10} color="teal.400">
+          Create a List.
+        </Heading>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Address
+        </Heading>
+        <Input
+          type="text"
+          mb={8}
+          value={editedList.address || ""}
+          onChange={handleChangeAddress}
+        />
 
-      <h2>Type</h2>
-      <select onChange={handleChangeType}>
-        <option value="flat">Flat</option>
-        <option value="detached">Detached</option>
-        <option value="semi-detached">Semi-detached</option>
-        <option value="Terraced">Terraced</option>
-      </select>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Type
+        </Heading>
+        <Select onChange={handleChangeType} mb={8}>
+          <option value="flat">Flat</option>
+          <option value="detached">Detached</option>
+          <option value="semi-detached">Semi-detached</option>
+          <option value="Terraced">Terraced</option>
+        </Select>
 
-      <h2>Description</h2>
-      <textarea
-        value={editedList.description}
-        onChange={handleChangeDescription}
-      />
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Description
+        </Heading>
+        <Textarea
+          value={editedList.description}
+          onChange={handleChangeDescription}
+          mb={8}
+        />
 
-      <p>{editedList.address}</p>
-      <p>{editedList.type}</p>
-      <p>{editedList.description}</p>
+        {/* <p>{editedList.address}</p>
+        <p>{editedList.type}</p>
+        <p>{editedList.description}</p> */}
 
-      <button onClick={saveData}>save</button>
-      <button onClick={deleteData}>Delete</button>
-    </>
+        <Button
+          size="lg"
+          w={200}
+          borderRadius={20}
+          bg={"teal.400"}
+          colorScheme="teal"
+          display="block"
+          mx="auto"
+          onClick={saveData}
+        >
+          save
+        </Button>
+        <Button
+          size="lg"
+          w={200}
+          borderRadius={20}
+          bg={"teal.400"}
+          colorScheme="teal"
+          display="block"
+          mx="auto"
+          onClick={deleteData}
+        >
+          Delete
+        </Button>
+      </Box>
+    </Container>
   );
 }

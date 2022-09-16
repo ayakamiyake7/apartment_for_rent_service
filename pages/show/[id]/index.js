@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
+import { Box, Button, Container, Heading, Text } from "@chakra-ui/react";
+
 import { listsState } from "../../../src/hooks/listsState";
 
 export default function Rent() {
@@ -28,22 +30,58 @@ export default function Rent() {
   }, []);
 
   return (
-    <>
-      <p>This is rent page.</p>
-      <ul>
-        <li>{selectedList.address}</li>
-        <li>{selectedList.type}</li>
-        <li>{selectedList.description}</li>
-        <li>{selectedList.id}</li>
-      </ul>
-      <Link
-        href={{
-          pathname: `/show/${selectedList.id}/edit`,
-          query: { id: selectedList.id },
+    <Container
+      h="100%"
+      minHeight="100vh"
+      position="relative"
+      background="#efefef"
+      maxW="auto"
+    >
+      <Box
+        my="6"
+        rounded="lg"
+        w={{
+          base: "calc(100% - 40px)",
+          md: 1000,
         }}
+        m="auto"
+        py={8}
       >
-        <button>Edit</button>
-      </Link>
-    </>
+        <Heading as="h1" size="xl" mb={10} color="teal.400">
+          Create a List.
+        </Heading>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Address
+        </Heading>
+        <Text mb={8}>{selectedList.address}</Text>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Type
+        </Heading>
+        <Text mb={8}>{selectedList.type}</Text>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Description
+        </Heading>
+        <Text mb={10}>{selectedList.description}</Text>
+
+        <Link
+          href={{
+            pathname: `/show/${selectedList.id}/edit`,
+            query: { id: selectedList.id },
+          }}
+        >
+          <Button
+            size="lg"
+            w={200}
+            borderRadius={20}
+            bg={"teal.400"}
+            colorScheme="teal"
+            display="block"
+            mx="auto"
+          >
+            Edit
+          </Button>
+        </Link>
+      </Box>
+    </Container>
   );
 }
