@@ -115,18 +115,20 @@ export default function Edit() {
           colorScheme="teal"
           display="block"
           mx="auto"
+          mb={8}
           onClick={saveData}
         >
-          save
+          Save
         </Button>
         <Button
           size="lg"
           w={200}
           borderRadius={20}
-          bg={"teal.400"}
-          colorScheme="teal"
+          color="white"
+          bg={"gray.400"}
+          _hover={{ background: "gray.600" }}
           display="block"
-          mx="auto"
+          // mx="auto"
           onClick={deleteData}
         >
           Delete
