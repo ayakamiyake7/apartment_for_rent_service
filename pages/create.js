@@ -10,7 +10,7 @@ export default function Create() {
   const [address, setAddress] = useState("");
   const [type, setType] = useState("flat");
   const [description, setDescription] = useState("");
-  const [images, setImages] = useState([]);
+  const [imgsSrc, setImgsSrc] = useState([]);
 
   const handleAddAddress = (e) => {
     setAddress(e.target.value);
@@ -21,16 +21,25 @@ export default function Create() {
   };
 
   const onFileUpload = (e) => {
-    if (!e.target.files) return;
-    setImages([...images, ...e.target.files]);
+    for (const file of e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImgsSrc((imgs) => [...imgs, reader.result]);
+      };
+      reader.onerror = () => {
+        console.log(reader.error);
+      };
+    }
   };
+  console.log(imgsSrc, imgsSrc.length);
 
   const handleClickCreate = () => {
     const newLists = [
       {
         address: address,
         type: type,
-        images: images,
+        images: imgsSrc,
         description: description,
         id: uunidv4(),
       },
@@ -38,8 +47,6 @@ export default function Create() {
     ];
 
     setLists(newLists);
-
-    console.log(newLists);
   };
 
   return (
@@ -54,14 +61,17 @@ export default function Create() {
         <option value="Terraced">Terraced</option>
       </select>
       <h2>Images</h2>
-      <input
-        multiple
-        type="file"
-        accept=".png, .jpeg, .jpg"
-        dataURLKey="data_url"
-        onChange={onFileUpload}
-      />
-
+      <div>
+        <input
+          onChange={onFileUpload}
+          type="file"
+          multiple
+          accept=".png, .jpeg, .jpg"
+        />
+        {imgsSrc.map((link, index) => (
+          <img key={index} src={link} />
+        ))}
+      </div>
       <h2>Description</h2>
       <textarea onChange={(e) => setDescription(e.target.value)} />
 
