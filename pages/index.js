@@ -20,21 +20,28 @@ export default function Home() {
       </Link>
 
       <ul>
+        {console.log(lists)}
         {lists.map((list) => {
           return (
             <li key={list.id}>
               {list.id},{list.address},{list.type},{list.description}
               {list.images.map((image, i) => {
-                <div key={i}>
-                  <img
-                    src={image.data_url}
-                    style={{
-                      width: "100%",
-                    }}
-                  />
+                <div>
+                  <img src={image} />
                 </div>;
+                // <div key={i}>
+                //   {
+                //     <img
+                //       src={image}
+                //       style={{
+                //         width: "100%",
+                //       }}
+                //     />
+                //   }
+                //   {/* {console.log("URL=", URL.createObjectURL(image))} */}
+                // </div>;
                 {
-                  console.log(image);
+                  console.log("images=", image);
                 }
               })}
               <Link href={`/show/${list.id}`}>
