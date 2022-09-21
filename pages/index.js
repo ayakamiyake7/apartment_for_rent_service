@@ -95,6 +95,25 @@ export default function Home() {
                   Type
                 </Heading> */}
                 <Text mb={8}>{list.type}</Text>
+                {list.images.map((image, i) => {
+                  <div>
+                    <img src={image} />
+                  </div>;
+                  // <div key={i}>
+                  //   {
+                  //     <img
+                  //       src={image}
+                  //       style={{
+                  //         width: "100%",
+                  //       }}
+                  //     />
+                  //   }
+                  //   {/* {console.log("URL=", URL.createObjectURL(image))} */}
+                  // </div>;
+                  {
+                    console.log("images=", image);
+                  }
+                })}
                 {/* <Heading as="h2" size="md" mb={2} color="gray.500">
                   Description
                 </Heading> */}

@@ -19,6 +19,7 @@ export default function Create() {
   const [address, setAddress] = useState("");
   const [type, setType] = useState("flat");
   const [description, setDescription] = useState("");
+  const [imgsSrc, setImgsSrc] = useState([]);
 
   const handleAddAddress = (e) => {
     setAddress(e.target.value);
@@ -28,11 +29,26 @@ export default function Create() {
     setType(e.target.value);
   };
 
+  const onFileUpload = (e) => {
+    for (const file of e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImgsSrc((imgs) => [...imgs, reader.result]);
+      };
+      reader.onerror = () => {
+        console.log(reader.error);
+      };
+    }
+  };
+  console.log(imgsSrc, imgsSrc.length);
+
   const handleClickCreate = () => {
     const newLists = [
       {
         address: address,
         type: type,
+        images: imgsSrc,
         description: description,
         id: uunidv4(),
       },
@@ -76,6 +92,18 @@ export default function Create() {
           <option value="semi-detached">Semi-detached</option>
           <option value="Terraced">Terraced</option>
         </Select>
+        <h2>Images</h2>
+        <div>
+          <input
+            onChange={onFileUpload}
+            type="file"
+            multiple
+            accept=".png, .jpeg, .jpg"
+          />
+          {imgsSrc.map((link, index) => (
+            <img key={index} src={link} />
+          ))}
+        </div>
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Description
         </Heading>
