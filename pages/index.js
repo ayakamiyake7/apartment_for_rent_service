@@ -87,36 +87,13 @@ export default function Home() {
                 p={10}
                 mb={8}
               >
-                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
-                  Address
-                </Heading> */}
                 <Text mb={8}>{list.address}</Text>
-                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
-                  Type
-                </Heading> */}
                 <Text mb={8}>{list.type}</Text>
-                {list.images.map((image, i) => {
-                  <div>
-                    <img src={image} />
-                  </div>;
-                  // <div key={i}>
-                  //   {
-                  //     <img
-                  //       src={image}
-                  //       style={{
-                  //         width: "100%",
-                  //       }}
-                  //     />
-                  //   }
-                  //   {/* {console.log("URL=", URL.createObjectURL(image))} */}
-                  // </div>;
-                  {
-                    console.log("images=", image);
-                  }
-                })}
-                {/* <Heading as="h2" size="md" mb={2} color="gray.500">
-                  Description
-                </Heading> */}
+                <Box mb={8}>
+                  {list.images.map((image) => {
+                    return <img src={image} />;
+                  })}
+                </Box>
                 <Text mb={10}>{list.description}</Text>
                 <Link href={`/show/${list.id}`}>
                   <Button
@@ -127,7 +104,6 @@ export default function Home() {
                     colorScheme="teal"
                     display="block"
                     mx="auto"
-                    mb={10}
                   >
                     Detail
                   </Button>

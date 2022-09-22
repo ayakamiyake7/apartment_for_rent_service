@@ -92,8 +92,10 @@ export default function Create() {
           <option value="semi-detached">Semi-detached</option>
           <option value="Terraced">Terraced</option>
         </Select>
-        <h2>Images</h2>
-        <div>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Images
+        </Heading>
+        <Box mb={8}>
           <input
             onChange={onFileUpload}
             type="file"
@@ -103,7 +105,7 @@ export default function Create() {
           {imgsSrc.map((link, index) => (
             <img key={index} src={link} />
           ))}
-        </div>
+        </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Description
         </Heading>
