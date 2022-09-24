@@ -90,8 +90,8 @@ export default function Home() {
                 <Text mb={8}>{list.address}</Text>
                 <Text mb={8}>{list.type}</Text>
                 <Box mb={8}>
-                  {list.images.map((image) => {
-                    return <img src={image} />;
+                  {list.images.map((image, index) => {
+                    return <img src={image} key={index} />;
                   })}
                 </Box>
                 <Text mb={10}>{list.description}</Text>
