@@ -29,6 +29,8 @@ export default function Rent() {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
 
+  // console.log("selectedList.image=", selectedList.images);
+
   return (
     <Container
       h="100%"
@@ -58,6 +60,15 @@ export default function Rent() {
           Type
         </Heading>
         <Text mb={8}>{selectedList.type}</Text>
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Images
+        </Heading>
+        <Box mb={8}>
+          {console.log("selectedList.image=", selectedList.images)}
+          {selectedList.images.map((image) => {
+            return <img src={image} />;
+          })}
+        </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Description
         </Heading>
