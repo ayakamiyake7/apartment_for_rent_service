@@ -65,8 +65,9 @@ export default function Rent() {
         </Heading>
         <Box mb={8}>
           {console.log("selectedList.image=", selectedList.images)}
-          {selectedList.images.map((image) => {
-            return <img src={image} />;
+          {selectedList.images?.map((image, index) => {
+            // Optional changing
+            return <img key={index} src={image} />;
           })}
         </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
