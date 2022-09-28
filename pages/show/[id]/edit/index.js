@@ -28,6 +28,10 @@ export default function Edit() {
     setEditedList({ ...editedList, type: e.target.value });
   };
 
+  const handleChangeImages = (e) => {
+    setEditedList({ ...editedList, images: e.target.files });
+  };
+
   const handleChangeDescription = (e) => {
     setEditedList({ ...editedList, description: e.target.value });
   };
@@ -95,6 +99,22 @@ export default function Edit() {
         </Select>
 
         <Heading as="h2" size="md" mb={2} color="gray.500">
+          Images
+        </Heading>
+        <Box mb={8}>
+          {/* {console.log("selectedList.image=", selectedList.images)} */}
+          <input
+            onChange={handleChangeImages}
+            type="file"
+            multiple
+            accept=".png, .jpeg, .jpg"
+          />
+          {/* {editedList.images?.map((link, index) => (
+            <img key={index} src={link} />
+          ))} */}
+        </Box>
+
+        <Heading as="h2" size="md" mb={2} color="gray.500">
           Description
         </Heading>
         <Textarea
@@ -102,10 +122,6 @@ export default function Edit() {
           onChange={handleChangeDescription}
           mb={8}
         />
-
-        {/* <p>{editedList.address}</p>
-        <p>{editedList.type}</p>
-        <p>{editedList.description}</p> */}
 
         <Button
           size="lg"
