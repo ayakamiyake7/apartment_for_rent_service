@@ -109,9 +109,9 @@ export default function Edit() {
             multiple
             accept=".png, .jpeg, .jpg"
           />
-          {/* {editedList.images?.map((link, index) => (
+          {editedList.images?.map((link, index) => (
             <img key={index} src={link} />
-          ))} */}
+          ))}
         </Box>
 
         <Heading as="h2" size="md" mb={2} color="gray.500">
