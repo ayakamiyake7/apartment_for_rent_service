@@ -101,9 +101,10 @@ export default function Create() {
             type="file"
             multiple
             accept=".png, .jpeg, .jpg"
+            style={{ marginBottom: "20px" }}
           />
           {imgsSrc.map((link, index) => (
-            <img key={index} src={link} />
+            <img key={index} src={link} style={{ marginBottom: "20px" }} />
           ))}
         </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
