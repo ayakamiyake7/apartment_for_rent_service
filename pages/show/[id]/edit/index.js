@@ -29,7 +29,24 @@ export default function Edit() {
   };
 
   const handleChangeImages = (e) => {
-    setEditedList({ ...editedList, images: e.target.files });
+    //recoilに入っている編集前のimagesをstateから出しておく
+    //stateのままだと変更できない
+    let imgs = editedList.images;
+
+    //ファイルをアップロードする処理。
+    for (const file of e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        //ファイルの読み出しが成功した後に、setEditedListにimagesの情報をセットする
+        imgs = [...imgs, reader.result];
+        setEditedList({ ...editedList, images: imgs });
+      };
+      reader.onerror = () => {
+        console.log(reader.error);
+      };
+    }
+    // setEditedList({ ...editedList, images: e.target.files });
   };
 
   const handleChangeDescription = (e) => {
@@ -102,15 +119,15 @@ export default function Edit() {
           Images
         </Heading>
         <Box mb={8}>
-          {/* {console.log("selectedList.image=", selectedList.images)} */}
           <input
             onChange={handleChangeImages}
             type="file"
             multiple
             accept=".png, .jpeg, .jpg"
+            style={{ marginBottom: "20px" }}
           />
           {editedList.images?.map((link, index) => (
-            <img key={index} src={link} />
+            <img key={index} src={link} style={{ marginBottom: "20px" }} />
           ))}
         </Box>
 
