@@ -29,8 +29,6 @@ export default function Rent() {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
 
-  // console.log("selectedList.image=", selectedList.images);
-
   return (
     <Container
       h="100%"
