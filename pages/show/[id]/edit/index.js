@@ -9,6 +9,7 @@ import {
   Heading,
   Input,
   Select,
+  Text,
   Textarea,
 } from "@chakra-ui/react";
 
@@ -139,6 +140,11 @@ export default function Edit() {
           onChange={handleChangeDescription}
           mb={8}
         />
+
+        <Heading as="h2" size="md" mb={2} color="gray.500">
+          Review
+        </Heading>
+        <Text mb={10}>aaa</Text>
 
         <Button
           size="lg"
