@@ -9,7 +9,6 @@ import {
   Heading,
   Input,
   Select,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 
@@ -52,6 +51,10 @@ export default function Edit() {
 
   const handleChangeDescription = (e) => {
     setEditedList({ ...editedList, description: e.target.value });
+  };
+
+  const handleChangeReview = (e) => {
+    setEditedList({ ...editedList, review: e.target.value });
   };
 
   // 画面遷移したときにRecoilのデータを読み出す
@@ -144,7 +147,11 @@ export default function Edit() {
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
-        <Text mb={10}>aaa</Text>
+        <Textarea
+          value={editedList.review}
+          onChange={handleChangeReview}
+          mb={8}
+        />
 
         <Button
           size="lg"
