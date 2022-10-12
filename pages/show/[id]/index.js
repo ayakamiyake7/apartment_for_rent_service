@@ -76,8 +76,7 @@ export default function Rent() {
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
-        <Text mb={10}>aaa</Text>
-
+        <Text mb={10}>{selectedList.review}</Text>
         <Link
           href={{
             pathname: `/show/${selectedList.id}/edit`,
