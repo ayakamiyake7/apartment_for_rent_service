@@ -3,7 +3,23 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
-import { Box, Button, Container, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import { listsState } from "../../../src/hooks/listsState";
 
@@ -15,6 +31,33 @@ export default function Rent() {
   const lists = useRecoilValue(listsState);
   // To set list which is selected
   const [selectedList, setSelectedList] = useState("");
+  // reviews
+  const [review, setReview] = useState("");
+  const [reviews, setReviews] = useState([]);
+
+  // Modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // Add reviews
+  const handleChangeAddText = (e) => {
+    setReview(e.target.value);
+  };
+  const handleClickAddReview = () => {
+    // Shallow copy of the selectedList
+    const lists = { ...selectedList };
+
+    const newLists = {
+      reviews: [review, setReviews((reviews) => [...reviews])],
+      ...lists,
+    };
+    // console.log(newLists);
+
+    setSelectedList(newLists);
+
+    // Close the modal
+    onClose();
+    console.log("reviews=", reviews);
+  };
 
   // useEffect(() => {
   //   if (router.query.id) {
@@ -48,7 +91,7 @@ export default function Rent() {
         py={8}
       >
         <Heading as="h1" size="xl" mb={10} color="teal.400">
-          Create a List.
+          List.
         </Heading>
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Address
@@ -62,7 +105,6 @@ export default function Rent() {
           Images
         </Heading>
         <Box mb={8}>
-          {console.log("selectedList.image=", selectedList.images)}
           {selectedList.images?.map((image, index) => {
             // Optional changing
             return <img key={index} src={image} />;
@@ -76,25 +118,74 @@ export default function Rent() {
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
-        <Text mb={10}>{selectedList.review}</Text>
-        <Link
-          href={{
-            pathname: `/show/${selectedList.id}/edit`,
-            query: { id: selectedList.id },
-          }}
-        >
+        <ul>
+          {reviews.map((list, index) => {
+            return <li key={index}>{list}</li>;
+          })}
+        </ul>
+        <Flex justify="center" wrap="wrap">
           <Button
             size="lg"
-            w={200}
+            w={{ base: "100%", md: 200 }}
+            h={{ base: 16, md: 12 }}
             borderRadius={20}
             bg={"teal.400"}
             colorScheme="teal"
             display="block"
-            mx="auto"
+            mr={{ base: 0, md: 8 }}
+            mb={{ base: 8, md: 8 }}
+            onClick={onOpen}
           >
-            Edit
+            Write a Review
           </Button>
-        </Link>
+          <Link
+            href={{
+              pathname: `/show/${selectedList.id}/edit`,
+              query: { id: selectedList.id },
+            }}
+          >
+            <Button
+              size="lg"
+              w={{ base: "100%", md: 200 }}
+              h={{ base: 16, md: 12 }}
+              borderRadius={20}
+              bg={"teal.400"}
+              colorScheme="teal"
+              display="block"
+            >
+              Edit
+            </Button>
+          </Link>
+        </Flex>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Please enter your review.</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Input
+                type="text"
+                value={review}
+                onChange={handleChangeAddText}
+                mb={8}
+              />
+              <Button
+                size="lg"
+                w={{ base: "100%", md: 200 }}
+                h={{ base: 16, md: 12 }}
+                borderRadius={20}
+                bg={"teal.400"}
+                colorScheme="teal"
+                display="block"
+                mx="auto"
+                onClick={handleClickAddReview}
+              >
+                Add a Review
+              </Button>
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     </Container>
   );
