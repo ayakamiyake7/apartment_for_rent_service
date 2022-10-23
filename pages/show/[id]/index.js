@@ -46,17 +46,24 @@ export default function Rent() {
     // Shallow copy of the selectedList
     const lists = { ...selectedList };
 
+    // setReviews([review, ...reviews]);
+
     const newLists = {
-      reviews: [review, setReviews((reviews) => [...reviews])],
+      // reviews: [review, setReviews((reviews) => [...reviews])],
+      // reviews: setReviews([review, ...reviews]),
+      // reviews: setReviews((reviews) => [...reviews, review]),
+      // reviews: [review, setReviews([...reviews])],
+
+      reviews: setReviews([review, ...reviews]),
       ...lists,
     };
     // console.log(newLists);
 
     setSelectedList(newLists);
 
+    setReview("");
     // Close the modal
     onClose();
-    console.log("reviews=", reviews);
   };
 
   // useEffect(() => {
@@ -105,6 +112,8 @@ export default function Rent() {
           Images
         </Heading>
         <Box mb={8}>
+          {console.log("reviews=", reviews)}
+          {console.log("selectedList=", selectedList)}
           {selectedList.images?.map((image, index) => {
             // Optional changing
             return <img key={index} src={image} />;
