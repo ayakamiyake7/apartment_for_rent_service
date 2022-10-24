@@ -19,7 +19,7 @@ export default function Edit() {
 
   const [recoilLists, recoilSetLists] = useRecoilState(listsState);
   const [editedList, setEditedList] = useState({});
-  const [reviews, setReviews] = useState({});
+  // const [reviews, setReviews] = useState({});
 
   const handleChangeAddress = (e) => {
     setEditedList({ ...editedList, address: e.target.value });
@@ -150,16 +150,16 @@ export default function Edit() {
           mb={8}
         />
 
-        <Heading as="h2" size="md" mb={2} color="gray.500">
+        {/* <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
         <Textarea
           value={editedList.review}
           onChange={handleChangeReview}
           mb={8}
-        />
+        /> */}
 
-        <Button
+        {/* <Button
           size="lg"
           w={200}
           borderRadius={20}
@@ -171,7 +171,7 @@ export default function Edit() {
           onClick={addReviewTextarea}
         >
           +
-        </Button>
+        </Button> */}
         <Button
           size="lg"
           w={200}

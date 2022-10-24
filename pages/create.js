@@ -41,7 +41,6 @@ export default function Create() {
       };
     }
   };
-  console.log(imgsSrc, imgsSrc.length);
 
   const handleClickCreate = () => {
     const newLists = [
