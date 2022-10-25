@@ -54,7 +54,8 @@ export default function Rent() {
       // reviews: setReviews((reviews) => [...reviews, review]),
       // reviews: [review, setReviews([...reviews])],
 
-      reviews: setReviews([review, ...reviews]),
+      // reviews: setReviews([review, ...reviews]),
+      reviews: setReviews([...reviews, review: e.target.value]),
       ...lists,
     };
     // console.log(newLists);
