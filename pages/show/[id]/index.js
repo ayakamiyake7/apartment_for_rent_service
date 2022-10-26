@@ -46,19 +46,10 @@ export default function Rent() {
     // Shallow copy of the selectedList
     const lists = { ...selectedList };
 
-    // setReviews([review, ...reviews]);
-
     const newLists = {
-      // reviews: [review, setReviews((reviews) => [...reviews])],
-      // reviews: setReviews([review, ...reviews]),
-      // reviews: setReviews((reviews) => [...reviews, review]),
-      // reviews: [review, setReviews([...reviews])],
-
-      // reviews: setReviews([review, ...reviews]),
       reviews: setReviews([...reviews, review]),
       ...lists,
     };
-    // console.log(newLists);
 
     setSelectedList(newLists);
 
