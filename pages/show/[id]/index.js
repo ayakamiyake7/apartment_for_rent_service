@@ -55,7 +55,7 @@ export default function Rent() {
       // reviews: [review, setReviews([...reviews])],
 
       // reviews: setReviews([review, ...reviews]),
-      reviews: setReviews([...reviews, review: e.target.value]),
+      reviews: setReviews([...reviews, review]),
       ...lists,
     };
     // console.log(newLists);
@@ -117,7 +117,7 @@ export default function Rent() {
           {console.log("selectedList=", selectedList)}
           {selectedList.images?.map((image, index) => {
             // Optional changing
-            return <img key={index} src={image} />;
+            return <img src={image} />;
           })}
         </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
