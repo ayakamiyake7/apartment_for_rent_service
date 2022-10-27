@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 import {
   Box,
@@ -28,7 +28,7 @@ export default function Rent() {
   const router = useRouter();
 
   // To call present lists (all)
-  const lists = useRecoilValue(listsState);
+  const [lists, setLists] = useRecoilState(listsState);
   // To set list which is selected
   const [selectedList, setSelectedList] = useState("");
   // reviews
@@ -43,33 +43,31 @@ export default function Rent() {
     setReview(e.target.value);
   };
   const handleClickAddReview = () => {
-    // Shallow copy of the selectedList
-    const lists = { ...selectedList };
-
-    const newLists = {
-      reviews: setReviews([...reviews, review]),
-      ...lists,
-    };
-
-    setSelectedList(newLists);
+    // At first, add reviews
+    setReviews([review, ...reviews]);
 
     setReview("");
     // Close the modal
     onClose();
   };
 
-  // useEffect(() => {
-  //   if (router.query.id) {
-  //     setDetailList(lists.find((list) => list.id === router.query.id));
-  //   } else {
-  //     router.push("/");
-  //   }
-  // }, []);
-  //for security reason
-
   useEffect(() => {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
+
+  // After setting reviews, update a new list based on changed reviews
+  useEffect(() => {
+    const newList = {
+      reviews: [...reviews],
+      ...selectedList,
+    };
+    let copy_lists = { ...lists };
+    copy_lists[router.query.id] = newList; //?
+    // console.log("copy_lists", copy_lists);
+
+    setLists(newList);
+    console.log("newList=", newList);
+  }, [reviews]);
 
   return (
     <Container
@@ -104,8 +102,6 @@ export default function Rent() {
           Images
         </Heading>
         <Box mb={8}>
-          {console.log("reviews=", reviews)}
-          {console.log("selectedList=", selectedList)}
           {selectedList.images?.map((image, index) => {
             // Optional changing
             return <img src={image} />;
