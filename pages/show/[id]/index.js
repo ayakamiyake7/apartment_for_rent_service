@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { v4 as uunidv4 } from "uuid";
 
 import {
   Box,
@@ -21,6 +22,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
+import { DeleteIcon } from "@chakra-ui/icons";
+
 import { listsState } from "../../../src/hooks/listsState";
 
 export default function Rent() {
@@ -34,6 +37,8 @@ export default function Rent() {
   // reviews
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
+  // Review id
+  const ReviewId = uunidv4();
 
   // Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,10 +50,19 @@ export default function Rent() {
   const handleClickAddReview = () => {
     // At first, add reviews
     setReviews([review, ...reviews]);
+    // console.log("ReviewId=", ReviewId);
 
     setReview("");
     // Close the modal
     onClose();
+  };
+
+  // Delete review
+  const handleClickDeleteReview = (index) => {
+    const newReviews = [...reviews];
+    const removeReview = newReviews.filter((review) => review.index !== index);
+    setReviews(removeReview);
+    console.log("review.index=", review.index);
   };
 
   useEffect(() => {
@@ -62,11 +76,12 @@ export default function Rent() {
       ...selectedList,
     };
     let copy_lists = { ...lists };
-    copy_lists[router.query.id] = newList; //?
-    // console.log("copy_lists", copy_lists);
+    copy_lists[router.query.id] = newList;
+    console.log("copy_lists", copy_lists);
 
     setLists(newList);
     console.log("newList=", newList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviews]);
 
   return (
@@ -102,7 +117,7 @@ export default function Rent() {
           Images
         </Heading>
         <Box mb={8}>
-          {selectedList.images?.map((image, index) => {
+          {selectedList.images?.map((image) => {
             // Optional changing
             return <img src={image} />;
           })}
@@ -115,11 +130,19 @@ export default function Rent() {
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
-        <ul>
-          {reviews.map((list, index) => {
-            return <li key={index}>{list}</li>;
-          })}
-        </ul>
+        <Box>
+          {reviews.map((list, index) => (
+            <Flex key={index} mb={4}>
+              <Text mr={8}>{list}</Text>
+              <DeleteIcon
+                w={6}
+                h={6}
+                color="teal.600"
+                onClick={handleClickDeleteReview}
+              />
+            </Flex>
+          ))}
+        </Box>
         <Flex justify="center" wrap="wrap">
           <Button
             size="lg"
