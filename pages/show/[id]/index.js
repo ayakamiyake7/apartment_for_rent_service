@@ -38,19 +38,25 @@ export default function Rent() {
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
   // Review id
-  const ReviewId = uunidv4();
+  const reviewId = uunidv4();
+  // Set currentTime
+  const today = new Date();
+  const currentTime = `${today.getDate()}/${today.getMonth()}/${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}}`;
 
   // Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Add reviews
   const handleChangeAddText = (e) => {
     setReview(e.target.value);
   };
+  // Add reviews
   const handleClickAddReview = () => {
     // At first, add reviews
-    setReviews([review, ...reviews]);
-    // console.log("ReviewId=", ReviewId);
+    // setReviews([review, ...reviews]);
+    setReviews([
+      { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
+      ...reviews,
+    ]);
 
     setReview("");
     // Close the modal
@@ -58,11 +64,13 @@ export default function Rent() {
   };
 
   // Delete review
-  const handleClickDeleteReview = (index) => {
+  const handleClickDeleteReview = (id) => {
     const newReviews = [...reviews];
-    const removeReview = newReviews.filter((review) => review.index !== index);
+    const removeReview = newReviews.filter(
+      (review) => review.id !== router.query.id
+    );
     setReviews(removeReview);
-    console.log("review.index=", review.index);
+    console.log("review.id=", review.id);
   };
 
   useEffect(() => {
