@@ -52,11 +52,11 @@ export default function Rent() {
   // Add reviews
   const handleClickAddReview = () => {
     // At first, add reviews
-    // setReviews([review, ...reviews]);
-    setReviews([
-      { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
-      ...reviews,
-    ]);
+    setReviews([review, ...reviews]);
+    // setReviews([
+    //   { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
+    //   ...reviews,
+    // ]);
 
     setReview("");
     // Close the modal
@@ -64,13 +64,12 @@ export default function Rent() {
   };
 
   // Delete review
-  const handleClickDeleteReview = (id) => {
+  const handleClickDeleteReview = (index) => {
     const newReviews = [...reviews];
-    const removeReview = newReviews.filter(
-      (review) => review.id !== router.query.id
-    );
+    const removeReview = newReviews.filter((review) => review[index] !== index);
+    // const removeReview = newReviews.splice(index, 1);
     setReviews(removeReview);
-    console.log("review.id=", review.id);
+    console.log("index=", index);
   };
 
   useEffect(() => {
@@ -87,7 +86,7 @@ export default function Rent() {
     copy_lists[router.query.id] = newList;
     console.log("copy_lists", copy_lists);
 
-    setLists(newList);
+    setLists(copy_lists);
     console.log("newList=", newList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviews]);
@@ -139,17 +138,19 @@ export default function Rent() {
           Review
         </Heading>
         <Box>
-          {reviews.map((list, index) => (
-            <Flex key={index} mb={4}>
-              <Text mr={8}>{list}</Text>
-              <DeleteIcon
-                w={6}
-                h={6}
-                color="teal.600"
-                onClick={handleClickDeleteReview}
-              />
-            </Flex>
-          ))}
+          {reviews.map((list, index) => {
+            return (
+              <Flex key={index} mb={4}>
+                <Text mr={8}>{list}</Text>
+                <DeleteIcon
+                  w={6}
+                  h={6}
+                  color="teal.600"
+                  onClick={handleClickDeleteReview}
+                />
+              </Flex>
+            );
+          })}
         </Box>
         <Flex justify="center" wrap="wrap">
           <Button
