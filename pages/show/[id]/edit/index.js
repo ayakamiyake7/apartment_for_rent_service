@@ -19,7 +19,6 @@ export default function Edit() {
 
   const [recoilLists, recoilSetLists] = useRecoilState(listsState);
   const [editedList, setEditedList] = useState({});
-  const [reviews, setReviews] = useState({});
 
   const handleChangeAddress = (e) => {
     setEditedList({ ...editedList, address: e.target.value });
@@ -52,15 +51,6 @@ export default function Edit() {
 
   const handleChangeDescription = (e) => {
     setEditedList({ ...editedList, description: e.target.value });
-  };
-
-  const handleChangeReview = (e) => {
-    setEditedList({ ...editedList, review: e.target.value });
-  };
-
-  // Add review textarea
-  const addReviewTextarea = () => {
-    <Textarea value={editedList.review} onChange={handleChangeReview} mb={8} />;
   };
 
   // 画面遷移したときにRecoilのデータを読み出す
@@ -150,28 +140,7 @@ export default function Edit() {
           mb={8}
         />
 
-        <Heading as="h2" size="md" mb={2} color="gray.500">
-          Review
-        </Heading>
-        <Textarea
-          value={editedList.review}
-          onChange={handleChangeReview}
-          mb={8}
-        />
 
-        <Button
-          size="lg"
-          w={200}
-          borderRadius={20}
-          bg={"teal.400"}
-          colorScheme="teal"
-          display="block"
-          ml="auto"
-          mb={8}
-          onClick={addReviewTextarea}
-        >
-          +
-        </Button>
         <Button
           size="lg"
           w={200}
