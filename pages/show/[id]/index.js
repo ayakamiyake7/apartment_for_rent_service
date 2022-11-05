@@ -66,10 +66,8 @@ export default function Rent() {
   // Delete review
   const handleClickDeleteReview = (index) => {
     const newReviews = [...reviews];
-    const removeReview = newReviews.filter((review) => review[index] !== index);
-    // const removeReview = newReviews.splice(index, 1);
-    setReviews(removeReview);
-    console.log("index=", index);
+    newReviews.splice(index, 1);
+    setReviews(newReviews);
   };
 
   useEffect(() => {
@@ -146,7 +144,7 @@ export default function Rent() {
                   w={6}
                   h={6}
                   color="teal.600"
-                  onClick={handleClickDeleteReview}
+                  onClick={()=>handleClickDeleteReview(index)}
                 />
               </Flex>
             );
