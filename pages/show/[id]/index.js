@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uunidv4 } from "uuid";
+import dayjs from 'dayjs';
 
 import {
   Box,
@@ -35,7 +36,7 @@ export default function Rent() {
   // To set list which is selected
   const [selectedList, setSelectedList] = useState("");
   // reviews
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState({});
   const [reviews, setReviews] = useState([]);
   // Review id
   const reviewId = uunidv4();
@@ -52,7 +53,9 @@ export default function Rent() {
   // Add reviews
   const handleClickAddReview = () => {
     // At first, add reviews
-    setReviews([review, ...reviews]);
+    const now = dayjs();
+    const addReview = {review: review, createdAt: now.format('YYYY-MM-DD HH:mm')};
+    setReviews([addReview, ...reviews]);
     // setReviews([
     //   { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
     //   ...reviews,
@@ -139,7 +142,8 @@ export default function Rent() {
           {reviews.map((list, index) => {
             return (
               <Flex key={index} mb={4}>
-                <Text mr={8}>{list}</Text>
+                <Text mr={8}>{list.review}</Text>
+                <Text mr={8}>{list.createdAt}</Text>
                 <DeleteIcon
                   w={6}
                   h={6}
@@ -192,7 +196,7 @@ export default function Rent() {
             <ModalBody>
               <Input
                 type="text"
-                value={review}
+                value={review.review}
                 onChange={handleChangeAddText}
                 mb={8}
               />
