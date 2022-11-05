@@ -54,8 +54,8 @@ export default function Rent() {
   const handleClickAddReview = () => {
     // At first, add reviews
     const now = dayjs();
-    const addReview = {review: review, createdAt: now.format('YYYY-MM-DD HH:mm')};
-    setReviews([addReview, ...reviews]);
+    const newReview = {review: review, createdAt: now.format('YYYY-MM-DD HH:mm')};
+    setReviews([newReview, ...reviews]);
     // setReviews([
     //   { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
     //   ...reviews,
