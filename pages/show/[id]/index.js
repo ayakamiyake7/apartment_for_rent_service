@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uunidv4 } from "uuid";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 import {
   Box,
@@ -40,9 +40,6 @@ export default function Rent() {
   const [reviews, setReviews] = useState([]);
   // Review id
   const reviewId = uunidv4();
-  // Set currentTime
-  const today = new Date();
-  const currentTime = `${today.getDate()}/${today.getMonth()}/${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}}`;
 
   // Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,12 +51,11 @@ export default function Rent() {
   const handleClickAddReview = () => {
     // At first, add reviews
     const now = dayjs();
-    const newReview = {review: review, createdAt: now.format('YYYY-MM-DD HH:mm')};
+    const newReview = {
+      review: review,
+      createdAt: now.format("YYYY-MM-DD HH:mm"),
+    };
     setReviews([newReview, ...reviews]);
-    // setReviews([
-    //   { id: reviewId, name: "Hanako", createdAt: currentTime, review: review },
-    //   ...reviews,
-    // ]);
 
     setReview("");
     // Close the modal
@@ -148,13 +144,14 @@ export default function Rent() {
                   w={6}
                   h={6}
                   color="teal.600"
-                  onClick={()=>handleClickDeleteReview(index)}
+                  cursor="pointer"
+                  onClick={() => handleClickDeleteReview(index)}
                 />
               </Flex>
             );
           })}
         </Box>
-        <Flex justify="center" wrap="wrap">
+        <Flex justify="center" wrap="wrap" mt={10}>
           <Button
             size="lg"
             w={{ base: "100%", md: 200 }}
