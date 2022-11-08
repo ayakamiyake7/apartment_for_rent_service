@@ -41,8 +41,18 @@ export default function Rent() {
   // Review id
   const reviewId = uunidv4();
 
-  // Modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Modal - Add reviews
+  const {
+    isOpen: isReviewOpen,
+    onOpen: onReviewOpen,
+    onClose: onReviewClose,
+  } = useDisclosure();
+  // Modal - Delete list
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose,
+  } = useDisclosure();
 
   const handleChangeAddText = (e) => {
     setReview(e.target.value);
@@ -59,7 +69,7 @@ export default function Rent() {
 
     setReview("");
     // Close the modal
-    onClose();
+    onReviewClose();
   };
 
   // Delete review
@@ -162,7 +172,7 @@ export default function Rent() {
             display="block"
             mr={{ base: 0, md: 8 }}
             mb={{ base: 8, md: 8 }}
-            onClick={onOpen}
+            onClick={onReviewOpen}
           >
             Write a Review
           </Button>
@@ -180,12 +190,27 @@ export default function Rent() {
               bg={"teal.400"}
               colorScheme="teal"
               display="block"
+              mr={{ base: 0, md: 8 }}
+              mb={{ base: 8, md: 8 }}
             >
               Edit
             </Button>
           </Link>
+          <Button
+            size="lg"
+            w={{ base: "100%", md: 200 }}
+            h={{ base: 16, md: 12 }}
+            borderRadius={20}
+            bg={"red.400"}
+            colorScheme="red"
+            display="block"
+            onClick={onDeleteOpen}
+          >
+            Delete a list
+          </Button>
         </Flex>
-        <Modal isOpen={isOpen} onClose={onClose}>
+
+        <Modal isOpen={isReviewOpen} onClose={onReviewClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Please enter your review.</ModalHeader>
@@ -210,6 +235,45 @@ export default function Rent() {
               >
                 Add a Review
               </Button>
+            </ModalBody>
+            <ModalFooter></ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        <Modal isOpen={isDeleteOpen} onClose={onDeleteClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Are you sure you delete the list?</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Flex>
+                <Button
+                  size="lg"
+                  w={{ base: "100%", md: 200 }}
+                  h={{ base: 16, md: 12 }}
+                  borderRadius={20}
+                  bg={"teal.400"}
+                  colorScheme="teal"
+                  display="block"
+                  mr={{ base: 0, md: 8 }}
+                  mb={{ base: 8, md: 0 }}
+                  onClick={onDeleteClose}
+                >
+                  No
+                </Button>
+                <Button
+                  size="lg"
+                  w={{ base: "100%", md: 200 }}
+                  h={{ base: 16, md: 12 }}
+                  borderRadius={20}
+                  bg={"red.400"}
+                  colorScheme="red"
+                  display="block"
+                  onClick={handleClickDeleteList}
+                >
+                  Yes
+                </Button>
+              </Flex>
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>
