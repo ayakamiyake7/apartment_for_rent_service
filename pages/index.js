@@ -73,13 +73,18 @@ export default function Home() {
                 boxShadow="lg"
                 p={10}
                 mb={8}
+                bg={"#fff"}
               >
                 <Text mb={8}>{list.address}</Text>
                 <Text mb={8}>{list.type}</Text>
                 <Box mb={8}>
-                  {list.images.map((image, index) => {
-                    return <img src={image} key={index} />;
-                  })}
+                  {list.images ? (
+                    list.images.map((image, index) => {
+                      return <img src={image} key={index} />;
+                    })
+                  ) : (
+                    <Box></Box>
+                  )}
                 </Box>
                 <Text mb={10}>{list.description}</Text>
                 <Link href={`/show/${list.id}`}>
