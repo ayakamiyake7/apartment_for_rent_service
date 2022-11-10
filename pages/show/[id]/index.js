@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { v4 as uunidv4 } from "uuid";
 import dayjs from "dayjs";
@@ -30,6 +30,8 @@ import { listsState } from "../../../src/hooks/listsState";
 export default function Rent() {
   // To gain an id that was passed from index.js
   const router = useRouter();
+
+  const ref = useRef(false);
 
   // To call present lists (all)
   const [lists, setLists] = useRecoilState(listsState);
@@ -70,6 +72,7 @@ export default function Rent() {
     setReview("");
     // Close the modal
     onReviewClose();
+    console.log("lists add review=", lists);
   };
 
   // Delete review
@@ -79,23 +82,45 @@ export default function Rent() {
     setReviews(newReviews);
   };
 
+  // Delete List
+  const handleClickDeleteList = () => {
+    // console.log(Object.values(lists));
+    // let copy_lists = lists.slice();
+    // let copy_lists = { ...lists };
+
+    const newLists = Object.values(lists).filter(
+      (list) => list.id !== selectedList.id
+    );
+    setLists(newLists);
+    console.log("newLists=", newLists);
+    console.log("lists in the delete=", lists);
+    // console.log("copy_lists=", copy_lists);
+    router.push("/");
+  };
+
   useEffect(() => {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
 
   // After setting reviews, update a new list based on changed reviews
+  // 最初にレンダリングを防げばいいのではと思ったがうまくいかない
   useEffect(() => {
-    const newList = {
-      reviews: [...reviews],
-      ...selectedList,
-    };
-    let copy_lists = { ...lists };
-    copy_lists[router.query.id] = newList;
-    console.log("copy_lists", copy_lists);
+    if (ref.current) {
+      const newList = {
+        reviews: [...reviews],
+        ...selectedList,
+      };
+      let copy_lists = { ...lists };
+      copy_lists[router.query.id] = newList;
+      console.log("lits in effect", lists);
+      console.log("ref=", ref.current);
 
-    setLists(copy_lists);
-    console.log("newList=", newList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      setLists(copy_lists);
+      // console.log("newList=", newList);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    } else {
+      ref.current = true;
+    }
   }, [reviews]);
 
   return (
@@ -106,6 +131,8 @@ export default function Rent() {
       background="#efefef"
       maxW="auto"
     >
+      {/* {console.log("lists1=", lists)} */}
+
       <Box
         my="6"
         rounded="lg"
@@ -131,9 +158,9 @@ export default function Rent() {
           Images
         </Heading>
         <Box mb={8}>
-          {selectedList.images?.map((image) => {
+          {selectedList.images?.map((image, reviewId) => {
             // Optional changing
-            return <img src={image} />;
+            return <img key={reviewId} src={image} />;
           })}
         </Box>
         <Heading as="h2" size="md" mb={2} color="gray.500">
@@ -144,8 +171,9 @@ export default function Rent() {
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Review
         </Heading>
-        <Box>
-          {reviews.map((list, index) => {
+
+        {reviews ? (
+          reviews.map((list, index) => {
             return (
               <Flex key={index} mb={4}>
                 <Text mr={8}>{list.review}</Text>
@@ -159,8 +187,10 @@ export default function Rent() {
                 />
               </Flex>
             );
-          })}
-        </Box>
+          })
+        ) : (
+          <Box></Box>
+        )}
         <Flex justify="center" wrap="wrap" mt={10}>
           <Button
             size="lg"
