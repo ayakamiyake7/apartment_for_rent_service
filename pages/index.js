@@ -6,8 +6,11 @@ import {
   Button,
   Container,
   Flex,
+  FormControl,
   GridItem,
   Heading,
+  Input,
+  Select,
   Text,
 } from "@chakra-ui/react";
 
@@ -37,12 +40,28 @@ export default function Home() {
           base: "calc(100% - 40px)",
           md: 1000,
         }}
-        m="auto"
+        m={{ base: "0 auto", md: "auto" }}
         py={8}
       >
         <Heading as="h1" size="xl" mb={10} color="teal.400">
           Find a Flat.
         </Heading>
+
+        <Flex direction={{ base: "column", md: "row" }}>
+          <Input
+            placeholder="Please enter the address."
+            mr={{ base: 0, md: 8 }}
+            mb={{ base: 4, md: 0 }}
+            w={{ base: "100%", md: "calc(100% - ((25% + 16em))" }}
+          />
+          <Select w={{ base: "100%", md: "25%" }} mx="auto" mb={8}>
+            <option value="all">All</option>
+            <option value="flat">Flat</option>
+            <option value="detached">Detached</option>
+            <option value="semi-detached">Semi-detached</option>
+            <option value="Terraced">Terraced</option>
+          </Select>
+        </Flex>
 
         <Link href="/create">
           <Button
