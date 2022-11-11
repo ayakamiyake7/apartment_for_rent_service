@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   Box,
   Button,
   Container,
   Flex,
-  FormControl,
   GridItem,
   Heading,
   Input,
@@ -18,6 +18,11 @@ import { listsState } from "../src/hooks/listsState";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
+  const [filterType, setFilterType] = useState("aaaa");
+
+  const handleFilterType = (e) => {
+    setFilterType(e.target.value);
+  };
 
   return (
     <Container
@@ -54,13 +59,20 @@ export default function Home() {
             mb={{ base: 4, md: 0 }}
             w={{ base: "100%", md: "calc(100% - ((25% + 16em))" }}
           />
-          <Select w={{ base: "100%", md: "25%" }} mx="auto" mb={8}>
+          <Select
+            w={{ base: "100%", md: "25%" }}
+            mx="auto"
+            mb={8}
+            value={filterType}
+            onChange={handleFilterType}
+          >
             <option value="all">All</option>
             <option value="flat">Flat</option>
             <option value="detached">Detached</option>
             <option value="semi-detached">Semi-detached</option>
             <option value="Terraced">Terraced</option>
           </Select>
+          {console.log(filterType)}
         </Flex>
 
         <Link href="/create">
