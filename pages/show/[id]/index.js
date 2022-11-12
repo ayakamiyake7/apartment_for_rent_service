@@ -36,7 +36,7 @@ export default function Rent() {
   // To call present lists (all)
   const [lists, setLists] = useRecoilState(listsState);
   // To set list which is selected
-  const [selectedList, setSelectedList] = useState("");
+  const [selectedList, setSelectedList] = useState({});
   // reviews
   const [review, setReview] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -105,13 +105,17 @@ export default function Rent() {
     setSelectedList(lists.find((list) => list.id === router.query.id));
   }, []);
 
+  useEffect(() => {
+    selectedList.reviews && setReviews(selectedList.reviews);
+  }, [selectedList]);
+
   // After setting reviews, update a new list based on changed reviews
   // 最初にレンダリングを防げばいいのではと思ったがうまくいかない
   useEffect(() => {
     if (ref.current && changeList) {
       const newList = {
-        reviews: [...reviews],
         ...selectedList,
+        reviews: [...reviews],
       };
       let copy_lists = [...lists];
 
@@ -180,12 +184,12 @@ export default function Rent() {
           Review
         </Heading>
 
-        {reviews ? (
-          reviews.map((list, index) => {
+        {reviews?.length ? (
+          reviews.map((review, index) => {
             return (
               <Flex key={index} mb={4}>
-                <Text mr={8}>{list.review}</Text>
-                <Text mr={8}>{list.createdAt}</Text>
+                <Text mr={8}>{review.review}</Text>
+                <Text mr={8}>{review.createdAt}</Text>
                 <DeleteIcon
                   w={6}
                   h={6}
