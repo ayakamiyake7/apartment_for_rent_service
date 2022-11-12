@@ -40,6 +40,7 @@ export default function Rent() {
   // reviews
   const [review, setReview] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [changeList, setChangeList] = useState(false);
   // Review id
   const reviewId = uunidv4();
 
@@ -71,6 +72,7 @@ export default function Rent() {
 
     setReview("");
     // Close the modal
+    setChangeList(true);
     onReviewClose();
     console.log("lists add review=", lists);
   };
@@ -80,6 +82,7 @@ export default function Rent() {
     const newReviews = [...reviews];
     newReviews.splice(index, 1);
     setReviews(newReviews);
+    setChangeList(true);
   };
 
   // Delete List
@@ -105,17 +108,24 @@ export default function Rent() {
   // After setting reviews, update a new list based on changed reviews
   // 最初にレンダリングを防げばいいのではと思ったがうまくいかない
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && changeList) {
       const newList = {
         reviews: [...reviews],
         ...selectedList,
       };
-      let copy_lists = { ...lists };
-      copy_lists[router.query.id] = newList;
+      let copy_lists = [...lists];
+
+      let index = 0;
+      lists.forEach((list, i) => {
+        if (list.id == router.query.id) index = i;
+      });
+
+      copy_lists[index] = newList;
       console.log("lits in effect", lists);
       console.log("ref=", ref.current);
 
       setLists(copy_lists);
+      setChangeList(false);
       // console.log("newList=", newList);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
