@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import {
   Box,
@@ -18,11 +18,41 @@ import { listsState } from "../src/hooks/listsState";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
-  const [filterType, setFilterType] = useState("aaaa");
+  const [filterType, setFilterType] = useState("All");
+  const [filteredLists, setFilteredLists] = useRecoilState(listsState);
 
   const handleFilterType = (e) => {
     setFilterType(e.target.value);
   };
+
+  useEffect(() => {
+    setFilteredLists(lists);
+  }, lists);
+  // Filter lists
+  useEffect(() => {
+    const filteringList = () => {
+      switch (filterType) {
+        case "All":
+          setFilteredLists(lists.filter((list) => list.type === "All"));
+          break;
+        case "Flat":
+          setFilteredLists(lists.filter((list) => list.type === "Flat"));
+          break;
+        case "Detached":
+          setFilteredLists(lists.filter((list) => list.type === "Detached"));
+          break;
+        case "Semi-detached":
+          setFilteredLists(
+            lists.filter((list) => list.type === "Semi-detached")
+          );
+          break;
+        case "Terraced":
+          setFilteredLists(lists.filter((list) => list.type === "Terraced"));
+          break;
+      }
+    };
+    filteringList();
+  }, [filterType]);
 
   return (
     <Container
@@ -96,7 +126,7 @@ export default function Home() {
           justify="space-between"
           direction={{ base: "column", md: "row" }}
         >
-          {lists.map((list) => {
+          {filteredLists.map((list) => {
             return (
               <GridItem
                 key={list.id}
