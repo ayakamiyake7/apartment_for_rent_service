@@ -115,12 +115,10 @@ export default function Rent() {
       };
       let copy_lists = [...lists];
 
-      let index = 0;
       lists.forEach((list, i) => {
-        if (list.id == router.query.id) index = i;
+        if (list.id == router.query.id) copy_lists[i] = newList;
       });
 
-      copy_lists[index] = newList;
       console.log("lits in effect", lists);
       console.log("ref=", ref.current);
 
