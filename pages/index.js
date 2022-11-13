@@ -49,6 +49,8 @@ export default function Home() {
         case "Terraced":
           setFilteredLists(lists.filter((list) => list.type === "Terraced"));
           break;
+        default:
+          setFilteredLists(lists);
       }
     };
     filteringList();
