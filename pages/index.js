@@ -19,41 +19,35 @@ import { listsState } from "../src/hooks/listsState";
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
   const [filterType, setFilterType] = useState("All");
-  const [filteredLists, setFilteredLists] = useRecoilState(listsState);
+  const [filteredLists, setFilteredLists] = useState([]);
 
   const handleFilterType = (e) => {
     setFilterType(e.target.value);
   };
 
+  // Filter type
   useEffect(() => {
-    setFilteredLists(lists);
-  }, lists);
-  // Filter lists
-  useEffect(() => {
-    const filteringList = () => {
+    const filteringLists = () => {
       switch (filterType) {
-        case "All":
-          setFilteredLists(lists.filter((list) => list.type === "All"));
+        case "flat":
+          setFilteredLists(lists.filter((list) => list.type === "flat"));
           break;
-        case "Flat":
-          setFilteredLists(lists.filter((list) => list.type === "Flat"));
+        case "detached":
+          setFilteredLists(lists.filter((list) => list.type === "detached"));
           break;
-        case "Detached":
-          setFilteredLists(lists.filter((list) => list.type === "Detached"));
-          break;
-        case "Semi-detached":
+        case "semiDetached":
           setFilteredLists(
-            lists.filter((list) => list.type === "Semi-detached")
+            lists.filter((list) => list.type === "semiDetached")
           );
           break;
-        case "Terraced":
-          setFilteredLists(lists.filter((list) => list.type === "Terraced"));
+        case "terraced":
+          setFilteredLists(lists.filter((list) => list.type === "terraced"));
           break;
         default:
           setFilteredLists(lists);
       }
     };
-    filteringList();
+    filteringLists();
   }, [filterType]);
 
   return (
@@ -101,10 +95,9 @@ export default function Home() {
             <option value="all">All</option>
             <option value="flat">Flat</option>
             <option value="detached">Detached</option>
-            <option value="semi-detached">Semi-detached</option>
-            <option value="Terraced">Terraced</option>
+            <option value="semiDetached">Semi-detached</option>
+            <option value="terraced">Terraced</option>
           </Select>
-          {console.log(filterType)}
         </Flex>
 
         <Link href="/create">

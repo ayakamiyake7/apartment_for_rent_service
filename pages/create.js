@@ -88,8 +88,8 @@ export default function Create() {
         <Select onChange={handleChangeType} mb={8}>
           <option value="flat">Flat</option>
           <option value="detached">Detached</option>
-          <option value="semi-detached">Semi-detached</option>
-          <option value="Terraced">Terraced</option>
+          <option value="semiDetached">Semi-detached</option>
+          <option value="terraced">Terraced</option>
         </Select>
         <Heading as="h2" size="md" mb={2} color="gray.500">
           Images
