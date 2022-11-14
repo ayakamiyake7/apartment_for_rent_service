@@ -74,7 +74,6 @@ export default function Rent() {
     // Close the modal
     setChangeList(true);
     onReviewClose();
-    console.log("lists add review=", lists);
   };
 
   // Delete review
@@ -87,17 +86,10 @@ export default function Rent() {
 
   // Delete List
   const handleClickDeleteList = () => {
-    // console.log(Object.values(lists));
-    // let copy_lists = lists.slice();
-    // let copy_lists = { ...lists };
-
     const newLists = Object.values(lists).filter(
       (list) => list.id !== selectedList.id
     );
     setLists(newLists);
-    console.log("newLists=", newLists);
-    console.log("lists in the delete=", lists);
-    // console.log("copy_lists=", copy_lists);
     router.push("/");
   };
 
@@ -110,7 +102,6 @@ export default function Rent() {
   }, [selectedList]);
 
   // After setting reviews, update a new list based on changed reviews
-  // 最初にレンダリングを防げばいいのではと思ったがうまくいかない
   useEffect(() => {
     if (ref.current && changeList) {
       const newList = {
@@ -123,12 +114,8 @@ export default function Rent() {
         if (list.id == router.query.id) copy_lists[i] = newList;
       });
 
-      console.log("lits in effect", lists);
-      console.log("ref=", ref.current);
-
       setLists(copy_lists);
       setChangeList(false);
-      // console.log("newList=", newList);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     } else {
       ref.current = true;
@@ -143,8 +130,6 @@ export default function Rent() {
       background="#efefef"
       maxW="auto"
     >
-      {/* {console.log("lists1=", lists)} */}
-
       <Box
         my="6"
         rounded="lg"
