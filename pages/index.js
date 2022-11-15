@@ -18,13 +18,28 @@ import { listsState } from "../src/hooks/listsState";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
+  const [searchAddress, setSearchAddress] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [filteredLists, setFilteredLists] = useState([]);
+
+  const handleFilterAddress = (e) => {
+    setSearchAddress(e.target.value);
+  };
+  // Filter address
+  useEffect(() => {
+    const filteringLists = () => {
+      if (searchAddress != "") {
+        setFilteredLists(
+          lists.filter((list) => list.address.includes(searchAddress))
+        );
+      }
+    };
+    filteringLists();
+  }, [searchAddress]);
 
   const handleFilterType = (e) => {
     setFilterType(e.target.value);
   };
-
   // Filter type
   useEffect(() => {
     const filteringLists = () => {
@@ -80,10 +95,13 @@ export default function Home() {
 
         <Flex direction={{ base: "column", md: "row" }}>
           <Input
+            type="search"
             placeholder="Please enter the address."
             mr={{ base: 0, md: 8 }}
             mb={{ base: 4, md: 0 }}
             w={{ base: "100%", md: "calc(100% - ((25% + 16em))" }}
+            value={searchAddress}
+            onChange={handleFilterAddress}
           />
           <Select
             w={{ base: "100%", md: "25%" }}
