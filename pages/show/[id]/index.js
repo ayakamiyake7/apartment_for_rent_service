@@ -23,7 +23,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { DeleteIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon, DeleteIcon } from "@chakra-ui/icons";
 
 import { listsState } from "../../../src/hooks/listsState";
 
@@ -227,6 +227,7 @@ export default function Rent() {
             size="lg"
             w={{ base: "100%", md: 200 }}
             h={{ base: 16, md: 12 }}
+            mb={{ base: 8, md: 0 }}
             borderRadius={20}
             bg={"red.400"}
             colorScheme="red"
@@ -236,6 +237,22 @@ export default function Rent() {
             Delete a list
           </Button>
         </Flex>
+        <Link href="/">
+          <Button
+            leftIcon={<ChevronLeftIcon />}
+            size="lg"
+            w={{ base: "100%", md: 200 }}
+            h={{ base: 16, md: 12 }}
+            mx="auto"
+            borderRadius={20}
+            variant="outline"
+            colorScheme="teal"
+            bg="white"
+            display="block"
+          >
+            Back
+          </Button>
+        </Link>
 
         <Modal isOpen={isReviewOpen} onClose={onReviewClose}>
           <ModalOverlay />
