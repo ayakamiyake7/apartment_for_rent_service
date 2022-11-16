@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import {
   Box,
@@ -8,6 +9,8 @@ import {
   Flex,
   GridItem,
   Heading,
+  Input,
+  Select,
   Text,
 } from "@chakra-ui/react";
 
@@ -15,6 +18,52 @@ import { listsState } from "../src/hooks/listsState";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
+  const [searchAddress, setSearchAddress] = useState("");
+  const [filterType, setFilterType] = useState("All");
+  const [filteredLists, setFilteredLists] = useState([]);
+
+  const handleFilterAddress = (e) => {
+    setSearchAddress(e.target.value);
+  };
+  // Filter address
+  useEffect(() => {
+    const filteringLists = () => {
+      if (searchAddress != "") {
+        setFilteredLists(
+          lists.filter((list) => list.address.includes(searchAddress))
+        );
+      }
+    };
+    filteringLists();
+  }, [searchAddress]);
+
+  const handleFilterType = (e) => {
+    setFilterType(e.target.value);
+  };
+  // Filter type
+  useEffect(() => {
+    const filteringLists = () => {
+      switch (filterType) {
+        case "flat":
+          setFilteredLists(lists.filter((list) => list.type === "flat"));
+          break;
+        case "detached":
+          setFilteredLists(lists.filter((list) => list.type === "detached"));
+          break;
+        case "semiDetached":
+          setFilteredLists(
+            lists.filter((list) => list.type === "semiDetached")
+          );
+          break;
+        case "terraced":
+          setFilteredLists(lists.filter((list) => list.type === "terraced"));
+          break;
+        default:
+          setFilteredLists(lists);
+      }
+    };
+    filteringLists();
+  }, [filterType]);
 
   return (
     <Container
@@ -37,12 +86,37 @@ export default function Home() {
           base: "calc(100% - 40px)",
           md: 1000,
         }}
-        m="auto"
+        m={{ base: "0 auto", md: "auto" }}
         py={8}
       >
         <Heading as="h1" size="xl" mb={10} color="teal.400">
           Find a Flat.
         </Heading>
+
+        <Flex direction={{ base: "column", md: "row" }}>
+          <Input
+            type="search"
+            placeholder="Please enter the address."
+            mr={{ base: 0, md: 8 }}
+            mb={{ base: 4, md: 0 }}
+            w={{ base: "100%", md: "calc(100% - ((25% + 16em))" }}
+            value={searchAddress}
+            onChange={handleFilterAddress}
+          />
+          <Select
+            w={{ base: "100%", md: "25%" }}
+            mx="auto"
+            mb={8}
+            value={filterType}
+            onChange={handleFilterType}
+          >
+            <option value="all">All</option>
+            <option value="flat">Flat</option>
+            <option value="detached">Detached</option>
+            <option value="semiDetached">Semi-detached</option>
+            <option value="terraced">Terraced</option>
+          </Select>
+        </Flex>
 
         <Link href="/create">
           <Button
@@ -65,7 +139,7 @@ export default function Home() {
           justify="space-between"
           direction={{ base: "column", md: "row" }}
         >
-          {lists.map((list) => {
+          {filteredLists.map((list) => {
             return (
               <GridItem
                 key={list.id}
