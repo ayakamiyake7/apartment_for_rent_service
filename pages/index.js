@@ -9,18 +9,30 @@ import {
   Flex,
   GridItem,
   Heading,
+  HStack,
+  Icon,
   Input,
   Select,
   Text,
 } from "@chakra-ui/react";
 
 import { listsState } from "../src/hooks/listsState";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchAddress, setSearchAddress] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [filteredLists, setFilteredLists] = useState([]);
+
+  // Pagination
+  const handleBack = () => {
+    if (currentPage === 1) {
+      return;
+    }
+    setCurrentPage(currentPage - 1);
+  };
 
   const handleFilterAddress = (e) => {
     setSearchAddress(e.target.value);
@@ -178,6 +190,17 @@ export default function Home() {
             );
           })}
         </Flex>
+        <HStack justify="center">
+          <Icon
+            as={ChevronLeftIcon}
+            boxSize={6}
+            cursor="pointer"
+            onClick={handleBack}
+          />
+          <Button>1</Button>
+          <Button>2</Button>
+          <Button>＞</Button>
+        </HStack>
       </Box>
     </Container>
   );
