@@ -18,6 +18,7 @@ import {
 
 import { listsState } from "../src/hooks/listsState";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import ReactPaginate from "react-paginate";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
@@ -27,12 +28,6 @@ export default function Home() {
   const [filteredLists, setFilteredLists] = useState([]);
 
   // Pagination
-  const handleBack = () => {
-    if (currentPage === 1) {
-      return;
-    }
-    setCurrentPage(currentPage - 1);
-  };
 
   const handleFilterAddress = (e) => {
     setSearchAddress(e.target.value);
@@ -190,7 +185,7 @@ export default function Home() {
             );
           })}
         </Flex>
-        <HStack justify="center">
+        {/* <HStack justify="center">
           <Icon
             as={ChevronLeftIcon}
             boxSize={6}
@@ -200,7 +195,8 @@ export default function Home() {
           <Button>1</Button>
           <Button>2</Button>
           <Button>＞</Button>
-        </HStack>
+        </HStack> */}
+        <ReactPaginate pageCount={Math.ceil(filteredLists.length / 10)} />
       </Box>
     </Container>
   );
