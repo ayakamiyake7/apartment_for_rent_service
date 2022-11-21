@@ -25,7 +25,7 @@ export default function Home() {
   const [filteredLists, setFilteredLists] = useState([]);
 
   const [offset, setOffset] = useState(0); // Where can I list items from
-  const perPage = 1; // the number of items in a page
+  const perPage = 10; // the number of items in a page
   // Pagination
   const handlePageChange = (data) => {
     let page_number = data["selected"];
