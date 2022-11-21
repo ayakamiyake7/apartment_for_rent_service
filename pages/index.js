@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import ReactPaginate from "react-paginate";
+
 import {
   Box,
   Button,
@@ -9,25 +11,26 @@ import {
   Flex,
   GridItem,
   Heading,
-  HStack,
-  Icon,
   Input,
   Select,
   Text,
 } from "@chakra-ui/react";
 
 import { listsState } from "../src/hooks/listsState";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
-import ReactPaginate from "react-paginate";
 
 export default function Home() {
   const [lists, setLists] = useRecoilState(listsState);
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchAddress, setSearchAddress] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [filteredLists, setFilteredLists] = useState([]);
 
+  const [offset, setOffset] = useState(0); // Where can I list items from
+  const perPage = 1; // the number of items in a page
   // Pagination
+  const handlePageChange = (data) => {
+    let page_number = data["selected"];
+    setOffset(page_number * perPage);
+  };
 
   const handleFilterAddress = (e) => {
     setSearchAddress(e.target.value);
@@ -146,7 +149,7 @@ export default function Home() {
           justify="space-between"
           direction={{ base: "column", md: "row" }}
         >
-          {filteredLists.map((list) => {
+          {filteredLists.slice(offset, offset + perPage).map((list) => {
             return (
               <GridItem
                 key={list.id}
@@ -185,18 +188,22 @@ export default function Home() {
             );
           })}
         </Flex>
-        {/* <HStack justify="center">
-          <Icon
-            as={ChevronLeftIcon}
-            boxSize={6}
-            cursor="pointer"
-            onClick={handleBack}
+        {filteredLists.length > perPage && (
+          <ReactPaginate
+            nextLabel=">"
+            previousLabel="<"
+            containerClassName="pagination"
+            pageClassName="pagination--item"
+            activeClassName="active"
+            previousClassName="page--previous"
+            nextClassName="page--next"
+            disabledClassName="page--disabled"
+            pageRangeDisplayed={1}
+            breakLabel="..."
+            pageCount={Math.ceil(filteredLists.length / perPage)}
+            onPageChange={handlePageChange}
           />
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>＞</Button>
-        </HStack> */}
-        <ReactPaginate pageCount={Math.ceil(filteredLists.length / 10)} />
+        )}
       </Box>
     </Container>
   );
