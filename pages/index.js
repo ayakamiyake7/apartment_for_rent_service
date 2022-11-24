@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import ReactPaginate from "react-paginate";
+
 import {
   Box,
   Button,
@@ -21,6 +23,14 @@ export default function Home() {
   const [searchAddress, setSearchAddress] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [filteredLists, setFilteredLists] = useState([]);
+
+  const [offset, setOffset] = useState(0); // Where can I list items from
+  const perPage = 10; // the number of items in a page
+  // Pagination
+  const handlePageChange = (data) => {
+    let page_number = data["selected"];
+    setOffset(page_number * perPage);
+  };
 
   const handleFilterAddress = (e) => {
     setSearchAddress(e.target.value);
@@ -139,7 +149,7 @@ export default function Home() {
           justify="space-between"
           direction={{ base: "column", md: "row" }}
         >
-          {filteredLists.map((list) => {
+          {filteredLists.slice(offset, offset + perPage).map((list) => {
             return (
               <GridItem
                 key={list.id}
@@ -178,6 +188,22 @@ export default function Home() {
             );
           })}
         </Flex>
+        {filteredLists.length > perPage && (
+          <ReactPaginate
+            nextLabel=">"
+            previousLabel="<"
+            containerClassName="pagination"
+            pageClassName="pagination--item"
+            activeClassName="active"
+            previousClassName="page--previous"
+            nextClassName="page--next"
+            disabledClassName="page--disabled"
+            pageRangeDisplayed={1}
+            breakLabel="..."
+            pageCount={Math.ceil(filteredLists.length / perPage)}
+            onPageChange={handlePageChange}
+          />
+        )}
       </Box>
     </Container>
   );
