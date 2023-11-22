@@ -1,12 +1,15 @@
 # RentFlat App（ロンドンでアパートを見つけるアプリ）
 <img src="/src/images/top-page.png" alt="Find a Flat.">
 
-## Create page
+## 概要
+複数でシェアするのがほとんどで、自室はあるがキッチンとバスルームはシェアとなるロンドンの家事情。言語がまだ不自由なため不利益を被ったり人間関係で苦労したりすることもしばしば。まさにお部屋探しは運とタイミングです。
+既存のお部屋探しサイトはありますが、利用者からのレビューがありません。自分や周りの経験からお部屋に対するレビュー機能付きのサイトができたら便利だと思い、作成しました。
+*フロント側のみ作成。
 
+## Create page
 <img src="/src/images/create-page.png" alt="Create a List.">
 
 ## Show page
-
 https://github.com/ayakamiyake7/apartment_for_rent_service/assets/88525743/f5b6aab9-2f72-4cd8-aa31-dffaf4984b84
 
 
