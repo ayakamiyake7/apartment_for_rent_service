@@ -1,6 +1,7 @@
 # RentFlat App（ロンドンでフラットを見つけるアプリ）
 
-※イギリスではアパートのことをフラットと呼ぶ。
+※イギリスではアパートのことをフラットと呼ぶ
+
 <img src="/src/images/top-page.png" alt="Find a Flat.">
 
 ## 概要
